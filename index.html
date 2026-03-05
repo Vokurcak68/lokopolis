@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lokopolis — Svět modelové železnice</title>
+<style>
+/* === RESET & BASE === */
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f1117;color:#e0e0e0;line-height:1.6}
+a{color:#f0a030;text-decoration:none}
+a:hover{color:#ffb84d}
+img{max-width:100%;display:block}
+
+/* === HEADER / NAV === */
+header{background:#161822;border-bottom:1px solid #252838;position:sticky;top:0;z-index:100}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;align-items:center;height:64px;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px;font-size:22px;font-weight:700;color:#fff;letter-spacing:-0.5px}
+.logo .icon{font-size:28px}
+.logo span.accent{color:#f0a030}
+nav{display:flex;gap:0}
+nav a{padding:20px 16px;color:#a0a4b8;font-size:14px;font-weight:500;transition:color .2s;border-bottom:2px solid transparent}
+nav a:hover,nav a.active{color:#fff;border-bottom-color:#f0a030}
+.nav-actions{display:flex;align-items:center;gap:12px}
+.btn-login{padding:8px 16px;border:1px solid #3a3f55;border-radius:8px;color:#a0a4b8;font-size:13px;background:transparent;cursor:pointer;transition:all .2s}
+.btn-login:hover{border-color:#f0a030;color:#f0a030}
+.btn-register{padding:8px 16px;border:none;border-radius:8px;background:#f0a030;color:#0f1117;font-size:13px;font-weight:600;cursor:pointer;transition:background .2s}
+.btn-register:hover{background:#ffb84d}
+.search-icon{color:#a0a4b8;cursor:pointer;font-size:18px;padding:8px}
+
+/* === HERO === */
+.hero{position:relative;height:420px;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(135deg,#1a1e2e 0%,#0f1117 50%,#1a1520 100%)}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420"><defs><linearGradient id="g1" x1="0%25" y1="100%25" x2="100%25" y2="0%25"><stop offset="0%25" stop-color="%23f0a030" stop-opacity="0.05"/><stop offset="100%25" stop-color="%23f0a030" stop-opacity="0"/></linearGradient></defs><rect fill="url(%23g1)" width="1200" height="420"/><line x1="0" y1="320" x2="1200" y2="320" stroke="%23f0a030" stroke-opacity="0.15" stroke-width="2"/><line x1="0" y1="322" x2="1200" y2="322" stroke="%23f0a030" stroke-opacity="0.08" stroke-width="1"/><circle cx="200" cy="320" r="3" fill="%23f0a030" fill-opacity="0.3"/><circle cx="500" cy="320" r="3" fill="%23f0a030" fill-opacity="0.3"/><circle cx="800" cy="320" r="3" fill="%23f0a030" fill-opacity="0.3"/><circle cx="1050" cy="320" r="3" fill="%23f0a030" fill-opacity="0.3"/></svg>') center/cover no-repeat}
+.hero-content{position:relative;z-index:2;padding:0 20px}
+.hero h1{font-size:52px;font-weight:800;letter-spacing:-1px;margin-bottom:12px}
+.hero h1 .accent{color:#f0a030}
+.hero p{font-size:20px;color:#8a8ea0;max-width:560px;margin:0 auto 32px}
+.hero-search{display:flex;max-width:480px;margin:0 auto;background:#1e2233;border:1px solid #2a2f45;border-radius:12px;overflow:hidden}
+.hero-search input{flex:1;padding:14px 20px;background:transparent;border:none;color:#fff;font-size:15px;outline:none}
+.hero-search input::placeholder{color:#555a70}
+.hero-search button{padding:14px 24px;background:#f0a030;border:none;color:#0f1117;font-weight:600;font-size:14px;cursor:pointer;transition:background .2s}
+.hero-search button:hover{background:#ffb84d}
+
+/* === STATS BAR === */
+.stats-bar{background:#161822;border-bottom:1px solid #252838;padding:16px 0}
+.stats-inner{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;justify-content:center;gap:48px}
+.stat{text-align:center}
+.stat-num{font-size:24px;font-weight:700;color:#f0a030}
+.stat-label{font-size:12px;color:#6a6e80;text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+
+/* === CATEGORIES === */
+.categories{max-width:1200px;margin:48px auto 0;padding:0 20px}
+.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.section-head h2{font-size:24px;font-weight:700;color:#fff}
+.section-head a{font-size:13px;color:#f0a030}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
+.cat-card{background:#1a1e2e;border:1px solid #252838;border-radius:12px;padding:24px 16px;text-align:center;transition:all .2s;cursor:pointer}
+.cat-card:hover{border-color:#f0a030;transform:translateY(-2px);box-shadow:0 8px 24px rgba(240,160,48,0.1)}
+.cat-icon{font-size:36px;margin-bottom:10px}
+.cat-name{font-size:14px;font-weight:600;color:#e0e0e0}
+.cat-count{font-size:12px;color:#6a6e80;margin-top:4px}
+
+/* === ARTICLES === */
+.articles{max-width:1200px;margin:48px auto 0;padding:0 20px}
+.article-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.article-card{background:#1a1e2e;border:1px solid #252838;border-radius:12px;overflow:hidden;transition:all .2s}
+.article-card:hover{border-color:#353a50;transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,0,0,0.3)}
+.article-img{height:180px;background:#252838;position:relative;overflow:hidden}
+.article-img .placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:48px;background:linear-gradient(135deg,#1e2233,#252838)}
+.article-badge{position:absolute;top:12px;left:12px;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;background:rgba(240,160,48,0.9);color:#0f1117}
+.article-body{padding:16px}
+.article-meta{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.article-author-pic{width:24px;height:24px;border-radius:50%;background:#353a50;display:flex;align-items:center;justify-content:center;font-size:11px}
+.article-author{font-size:12px;color:#6a6e80}
+.article-date{font-size:12px;color:#555a70}
+.article-card h3{font-size:16px;font-weight:600;color:#fff;margin-bottom:8px;line-height:1.4}
+.article-card p{font-size:13px;color:#8a8ea0;line-height:1.5}
+.article-stats{display:flex;gap:16px;margin-top:12px;padding-top:12px;border-top:1px solid #252838}
+.article-stat{font-size:12px;color:#6a6e80;display:flex;align-items:center;gap:4px}
+
+/* === DOWNLOADS === */
+.downloads{max-width:1200px;margin:48px auto 0;padding:0 20px}
+.dl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.dl-card{background:#1a1e2e;border:1px solid #252838;border-radius:12px;padding:20px;display:flex;gap:16px;align-items:center;transition:all .2s}
+.dl-card:hover{border-color:#353a50}
+.dl-icon{width:48px;height:48px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.dl-icon.pdf{background:rgba(220,53,69,0.15);color:#dc3545}
+.dl-icon.stl{background:rgba(32,201,151,0.15);color:#20c997}
+.dl-icon.zip{background:rgba(102,126,234,0.15);color:#667eea}
+.dl-info h4{font-size:14px;color:#e0e0e0;margin-bottom:4px}
+.dl-info p{font-size:12px;color:#6a6e80}
+.dl-info .dl-meta{display:flex;gap:12px;margin-top:6px}
+.dl-info .dl-meta span{font-size:11px;color:#555a70}
+
+/* === SIDEBAR SECTION === */
+.main-content{max-width:1200px;margin:48px auto 0;padding:0 20px;display:grid;grid-template-columns:1fr 320px;gap:32px}
+.sidebar .widget{background:#1a1e2e;border:1px solid #252838;border-radius:12px;padding:20px;margin-bottom:20px}
+.sidebar .widget h3{font-size:15px;font-weight:600;color:#fff;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid #252838}
+.widget-list{list-style:none}
+.widget-list li{padding:8px 0;border-bottom:1px solid #1e2233;display:flex;justify-content:space-between;align-items:center}
+.widget-list li:last-child{border:none}
+.widget-list li a{font-size:13px;color:#a0a4b8}
+.widget-list li a:hover{color:#f0a030}
+.widget-list li span{font-size:11px;color:#555a70;background:#1e2233;padding:2px 8px;border-radius:4px}
+.online-dot{display:inline-block;width:8px;height:8px;background:#20c997;border-radius:50%;margin-right:6px}
+.event-date{display:flex;flex-direction:column;align-items:center;width:44px;flex-shrink:0;background:#1e2233;border-radius:8px;padding:6px 4px}
+.event-date .month{font-size:10px;color:#f0a030;text-transform:uppercase;font-weight:600}
+.event-date .day{font-size:18px;color:#fff;font-weight:700;line-height:1}
+.event-item{display:flex;gap:12px;align-items:center;padding:8px 0}
+.event-info{font-size:13px;color:#a0a4b8;line-height:1.4}
+.event-info strong{color:#e0e0e0;font-weight:500}
+
+/* === FOOTER === */
+footer{margin-top:64px;background:#161822;border-top:1px solid #252838;padding:48px 0 24px}
+.footer-inner{max-width:1200px;margin:0 auto;padding:0 20px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:32px}
+.footer-brand .logo{margin-bottom:12px}
+.footer-brand p{font-size:13px;color:#6a6e80;max-width:280px}
+.footer-col h4{font-size:13px;font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:1px;margin-bottom:16px}
+.footer-col a{display:block;font-size:13px;color:#6a6e80;padding:4px 0}
+.footer-col a:hover{color:#f0a030}
+.footer-bottom{border-top:1px solid #252838;padding-top:24px;display:flex;justify-content:space-between;font-size:12px;color:#555a70}
+
+/* === RESPONSIVE === */
+@media(max-width:768px){
+  .nav-inner nav{display:none}
+  .hero h1{font-size:32px}
+  .hero p{font-size:16px}
+  .hero{height:340px}
+  .stats-inner{gap:24px}
+  .stat-num{font-size:18px}
+  .main-content{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .cat-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+<div class="nav-inner">
+  <div class="logo">
+    <span class="icon">🚂</span>
+    <span>Loko<span class="accent">polis</span></span>
+  </div>
+  <nav>
+    <a href="#" class="active">Domů</a>
+    <a href="#">Články</a>
+    <a href="#">Galerie</a>
+    <a href="#">Ke stažení</a>
+    <a href="#">Akce</a>
+    <a href="#">Fórum</a>
+  </nav>
+  <div class="nav-actions">
+    <span class="search-icon">🔍</span>
+    <button class="btn-login">Přihlásit</button>
+    <button class="btn-register">Registrace</button>
+  </div>
+</div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+<div class="hero-content">
+  <h1>Loko<span class="accent">polis</span></h1>
+  <p>Svět modelové železnice — návody, recenze, kolejové plány a komunita modelářů</p>
+  <div class="hero-search">
+    <input type="text" placeholder="Hledej články, modely, kolejové plány...">
+    <button>Hledat</button>
+  </div>
+</div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+<div class="stats-inner">
+  <div class="stat"><div class="stat-num">1 247</div><div class="stat-label">Článků</div></div>
+  <div class="stat"><div class="stat-num">385</div><div class="stat-label">Členů</div></div>
+  <div class="stat"><div class="stat-num">92</div><div class="stat-label">Ke stažení</div></div>
+  <div class="stat"><div class="stat-num">4 820</div><div class="stat-label">Fotografií</div></div>
+</div>
+</div>
+
+<!-- CATEGORIES -->
+<section class="categories">
+<div class="section-head">
+  <h2>Kategorie</h2>
+  <a href="#">Zobrazit vše →</a>
+</div>
+<div class="cat-grid">
+  <div class="cat-card"><div class="cat-icon">🏗️</div><div class="cat-name">Stavby kolejišť</div><div class="cat-count">214 článků</div></div>
+  <div class="cat-card"><div class="cat-icon">🔍</div><div class="cat-name">Recenze modelů</div><div class="cat-count">186 článků</div></div>
+  <div class="cat-card"><div class="cat-icon">🔧</div><div class="cat-name">Návody & tipy</div><div class="cat-count">153 článků</div></div>
+  <div class="cat-card"><div class="cat-icon">🎨</div><div class="cat-name">Krajina & scenérie</div><div class="cat-count">128 článků</div></div>
+  <div class="cat-card"><div class="cat-icon">⚡</div><div class="cat-name">Digitalizace</div><div class="cat-count">97 článků</div></div>
+  <div class="cat-card"><div class="cat-icon">🚃</div><div class="cat-name">Přestavby</div><div class="cat-count">142 článků</div></div>
+</div>
+</section>
+
+<!-- LATEST ARTICLES -->
+<section class="articles">
+<div class="section-head">
+  <h2>Nejnovější články</h2>
+  <a href="#">Všechny články →</a>
+</div>
+<div class="article-grid">
+  <div class="article-card">
+    <div class="article-img"><div class="placeholder">🏔️</div><span class="article-badge">Stavba</span></div>
+    <div class="article-body">
+      <div class="article-meta">
+        <div class="article-author-pic">PH</div>
+        <span class="article-author">Petr Havlík</span>
+        <span class="article-date">· 4. března 2026</span>
+      </div>
+      <h3>Stavba nádraží Měchenice — od plánu po první vlak</h3>
+      <p>Jak jsem navrhl a postavil repliku nádraží z epochy IV. Kompletní postup včetně materiálů a technik.</p>
+      <div class="article-stats">
+        <span class="article-stat">👁️ 342</span>
+        <span class="article-stat">💬 28</span>
+        <span class="article-stat">❤️ 47</span>
+      </div>
+    </div>
+  </div>
+  <div class="article-card">
+    <div class="article-img"><div class="placeholder">🚂</div><span class="article-badge">Recenze</span></div>
+    <div class="article-body">
+      <div class="article-meta">
+        <div class="article-author-pic">MK</div>
+        <span class="article-author">Milan Kratochvíl</span>
+        <span class="article-date">· 2. března 2026</span>
+      </div>
+      <h3>Tillig BR 01 — stojí nový model za tu cenu?</h3>
+      <p>Podrobná recenze nové Tillig parní lokomotivy. Srovnání s předchozí verzí, detaily, jízdní vlastnosti.</p>
+      <div class="article-stats">
+        <span class="article-stat">👁️ 521</span>
+        <span class="article-stat">💬 43</span>
+        <span class="article-stat">❤️ 62</span>
+      </div>
+    </div>
+  </div>
+  <div class="article-card">
+    <div class="article-img"><div class="placeholder">⚡</div><span class="article-badge">Návod</span></div>
+    <div class="article-body">
+      <div class="article-meta">
+        <div class="article-author-pic">JN</div>
+        <span class="article-author">Jan Novotný</span>
+        <span class="article-date">· 28. února 2026</span>
+      </div>
+      <h3>DCC dekodér do V180 — kompletní návod krok za krokem</h3>
+      <p>Instalace dekodéru Lenz Silver+ do lokomotivy V180 od Tillingu. Včetně nastavení CV hodnot.</p>
+      <div class="article-stats">
+        <span class="article-stat">👁️ 289</span>
+        <span class="article-stat">💬 15</span>
+        <span class="article-stat">❤️ 31</span>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- DOWNLOADS -->
+<section class="downloads">
+<div class="section-head">
+  <h2>Ke stažení</h2>
+  <a href="#">Vše ke stažení →</a>
+</div>
+<div class="dl-grid">
+  <div class="dl-card">
+    <div class="dl-icon pdf">📄</div>
+    <div class="dl-info">
+      <h4>Kolejový plán — Podhorské nádraží</h4>
+      <p>Plán 250×120cm, epocha IV, dvoukolejná trať</p>
+      <div class="dl-meta"><span>PDF · 3.2 MB</span><span>⬇️ 184×</span><span>⭐ 4.8</span></div>
+    </div>
+  </div>
+  <div class="dl-card">
+    <div class="dl-icon stl">🧊</div>
+    <div class="dl-info">
+      <h4>3D tisk — Telefonní budka ČSD</h4>
+      <p>STL soubor pro tisk v měřítku TT i H0</p>
+      <div class="dl-meta"><span>STL · 1.8 MB</span><span>⬇️ 97×</span><span>⭐ 4.5</span></div>
+    </div>
+  </div>
+  <div class="dl-card">
+    <div class="dl-icon zip">📦</div>
+    <div class="dl-info">
+      <h4>Obtisky — ČD Cargo vozy řady Eas</h4>
+      <p>Potiskový arch pro laserovou tiskárnu</p>
+      <div class="dl-meta"><span>ZIP · 5.4 MB</span><span>⬇️ 142×</span><span>⭐ 4.9</span></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- MAIN + SIDEBAR -->
+<div class="main-content">
+<div class="content">
+  <!-- Popular articles -->
+  <section>
+    <div class="section-head">
+      <h2>Populární tento měsíc</h2>
+    </div>
+    <div class="article-grid" style="grid-template-columns:1fr 1fr">
+      <div class="article-card">
+        <div class="article-img"><div class="placeholder">🌲</div><span class="article-badge">Krajina</span></div>
+        <div class="article-body">
+          <h3>Realistické stromy za pár korun — domácí výroba</h3>
+          <p>Návod na výrobu stromů z mořské houby, drátku a posypů. Výsledek překvapí.</p>
+          <div class="article-stats">
+            <span class="article-stat">👁️ 1 203</span>
+            <span class="article-stat">❤️ 89</span>
+          </div>
+        </div>
+      </div>
+      <div class="article-card">
+        <div class="article-img"><div class="placeholder">🛤️</div><span class="article-badge">Stavba</span></div>
+        <div class="article-body">
+          <h3>Moje první kolejiště — chyby, kterým se vyhnout</h3>
+          <p>Co bych udělal jinak, kdyby mohl začít znovu. Praktické rady pro začátečníky.</p>
+          <div class="article-stats">
+            <span class="article-stat">👁️ 2 150</span>
+            <span class="article-stat">❤️ 134</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="widget">
+    <h3>📅 Nadcházející akce</h3>
+    <div class="event-item">
+      <div class="event-date"><span class="month">Bře</span><span class="day">15</span></div>
+      <div class="event-info"><strong>Modelářská burza Praha</strong><br>Kulturní dům Barikádníků</div>
+    </div>
+    <div class="event-item">
+      <div class="event-date"><span class="month">Bře</span><span class="day">22</span></div>
+      <div class="event-info"><strong>Výstava Kolín</strong><br>Výstaviště TPCA</div>
+    </div>
+    <div class="event-item">
+      <div class="event-date"><span class="month">Dub</span><span class="day">5</span></div>
+      <div class="event-info"><strong>TT sraz Olomouc</strong><br>Klub přátel kolejí</div>
+    </div>
+  </div>
+  <div class="widget">
+    <h3>🏆 Aktivní autoři</h3>
+    <ul class="widget-list">
+      <li><a href="#">Petr Havlík</a><span>42 článků</span></li>
+      <li><a href="#">Milan Kratochvíl</a><span>38 článků</span></li>
+      <li><a href="#">Jan Novotný</a><span>29 článků</span></li>
+      <li><a href="#">Tomáš Müller</a><span>24 článků</span></li>
+      <li><a href="#">Radek Dvořák</a><span>21 článků</span></li>
+    </ul>
+  </div>
+  <div class="widget">
+    <h3>🟢 Online</h3>
+    <p style="font-size:13px;color:#8a8ea0">
+      <span class="online-dot"></span>12 uživatelů online
+    </p>
+    <p style="font-size:12px;color:#555a70;margin-top:8px">Celkem registrováno: 385 členů</p>
+  </div>
+  <div class="widget">
+    <h3>🏷️ Štítky</h3>
+    <div style="display:flex;flex-wrap:wrap;gap:6px">
+      <span style="background:#1e2233;padding:4px 10px;border-radius:6px;font-size:12px;color:#8a8ea0">Tillig</span>
+      <span style="background:#1e2233;padding:4px 10px;border-radius:6px;font-size:12px;color:#8a8ea0">DCC</span>
+      <span style="background:#1e2233;padding:4px 10px;border-radius:6px;font-size:12px;color:#8a8ea0">epocha IV</span>
+      <span style="background:#1e2233;padding:4px 10px;border-radius:6px;font-size:12px;color:#8a8ea0">3D tisk</span>
+      <span style="background:#1e2233;padding:4px 10px;border-radius:6px;font-size:12px;color:#8a8ea0">ČSD</span>
+      <span style="background:#1e2233;padding:4px 10px;border-radius:6px;font-size:12px;color:#8a8ea0">krajina</span>
+      <span style="background:#1e2233;padding:4px 10px;border-radius:6px;font-size:12px;color:#8a8ea0">patina</span>
+      <span style="background:#1e2233;padding:4px 10px;border-radius:6px;font-size:12px;color:#8a8ea0">ROCO</span>
+      <span style="background:#1e2233;padding:4px 10px;border-radius:6px;font-size:12px;color:#8a8ea0">výhybky</span>
+      <span style="background:#1e2233;padding:4px 10px;border-radius:6px;font-size:12px;color:#8a8ea0">LED osvětlení</span>
+    </div>
+  </div>
+</aside>
+</div>
+
+<!-- FOOTER -->
+<footer>
+<div class="footer-inner">
+<div class="footer-grid">
+  <div class="footer-brand">
+    <div class="logo"><span class="icon">🚂</span><span>Loko<span class="accent">polis</span></span></div>
+    <p>Česká komunita modelové železnice. Články, návody, recenze, galerie a vše pro vaše kolejiště.</p>
+  </div>
+  <div class="footer-col">
+    <h4>Obsah</h4>
+    <a href="#">Články</a>
+    <a href="#">Galerie</a>
+    <a href="#">Ke stažení</a>
+    <a href="#">Akce</a>
+  </div>
+  <div class="footer-col">
+    <h4>Komunita</h4>
+    <a href="#">Fórum</a>
+    <a href="#">Členové</a>
+    <a href="#">Pravidla</a>
+    <a href="#">Nový příspěvek</a>
+  </div>
+  <div class="footer-col">
+    <h4>Info</h4>
+    <a href="#">O projektu</a>
+    <a href="#">Kontakt</a>
+    <a href="#">RSS</a>
+    <a href="#">Podpořte nás</a>
+  </div>
+</div>
+<div class="footer-bottom">
+  <span>&copy; 2026 Lokopolis.cz — Svět modelové železnice</span>
+  <span>Vytvořeno s ❤️ pro modeláře</span>
+</div>
+</div>
+</footer>
+
+</body>
+</html>
