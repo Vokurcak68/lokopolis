@@ -16,7 +16,7 @@ img{max-width:100%;display:block}
 header{background:#161822;border-bottom:1px solid #252838;position:sticky;top:0;z-index:100}
 .nav-inner{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;align-items:center;height:64px;justify-content:space-between}
 .logo{display:flex;align-items:center;gap:10px;font-size:22px;font-weight:700;color:#fff;letter-spacing:-0.5px}
-.logo .icon{font-size:28px}
+.logo img.logo-img{height:40px;width:auto}
 .logo span.accent{color:#f0a030}
 nav{display:flex;gap:0}
 nav a{padding:20px 16px;color:#a0a4b8;font-size:14px;font-weight:500;transition:color .2s;border-bottom:2px solid transparent}
@@ -124,7 +124,7 @@ footer{margin-top:64px;background:#161822;border-top:1px solid #252838;padding:4
 /* === RESPONSIVE === */
 @media(max-width:768px){
   .nav-inner nav{display:none}
-  .hero h1{font-size:32px}
+  .hero img{height:120px!important}
   .hero p{font-size:16px}
   .hero{height:340px}
   .stats-inner{gap:24px}
@@ -141,8 +141,7 @@ footer{margin-top:64px;background:#161822;border-top:1px solid #252838;padding:4
 <header>
 <div class="nav-inner">
   <div class="logo">
-    <span class="icon">🚂</span>
-    <span>Loko<span class="accent">polis</span></span>
+    <img src="logo-main.png" alt="Lokopolis" class="logo-img">
   </div>
   <nav>
     <a href="#" class="active">Domů</a>
@@ -163,8 +162,8 @@ footer{margin-top:64px;background:#161822;border-top:1px solid #252838;padding:4
 <!-- HERO -->
 <section class="hero">
 <div class="hero-content">
-  <h1>Loko<span class="accent">polis</span></h1>
-  <p>Svět modelové železnice — návody, recenze, kolejové plány a komunita modelářů</p>
+  <img src="logo-main.png" alt="Lokopolis" style="height:160px;width:auto;margin:0 auto 16px">
+  <p>Návody, recenze, kolejové plány a komunita modelářů</p>
   <div class="hero-search">
     <input type="text" placeholder="Hledej články, modely, kolejové plány...">
     <button>Hledat</button>
@@ -385,7 +384,7 @@ footer{margin-top:64px;background:#161822;border-top:1px solid #252838;padding:4
 <div class="footer-inner">
 <div class="footer-grid">
   <div class="footer-brand">
-    <div class="logo"><span class="icon">🚂</span><span>Loko<span class="accent">polis</span></span></div>
+    <div class="logo"><img src="logo-main.png" alt="Lokopolis" class="logo-img"></div>
     <p>Česká komunita modelové železnice. Články, návody, recenze, galerie a vše pro vaše kolejiště.</p>
   </div>
   <div class="footer-col">
