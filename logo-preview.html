@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lokopolis — Logo návrhy</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0f1117;color:#e0e0e0;padding:20px}
+h1{text-align:center;font-size:28px;margin:20px 0 40px;color:#fff}
+h1 span{color:#f0a030}
+.grid{max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
+.variant{background:#161822;border:1px solid #252838;border-radius:16px;padding:32px;text-align:center}
+.variant h2{font-size:16px;color:#8a8ea0;margin-bottom:20px;font-weight:500}
+.variant.light{background:#f5f5f0;border-color:#ddd}
+.variant.light h2{color:#666}
+.logo-row{display:flex;align-items:center;justify-content:center;gap:40px;flex-wrap:wrap}
+
+/* Logo variant 1: Full horizontal */
+.logo-full{display:flex;align-items:center;gap:14px}
+.logo-full .loco{font-size:44px}
+.logo-full .text{font-size:40px;font-weight:800;letter-spacing:-1px}
+.logo-full .text .w{color:#fff}
+.logo-full .text .a{color:#f0a030}
+.variant.light .logo-full .text .w{color:#1a1e2e}
+.logo-full .sub{font-size:11px;color:#6a6e80;letter-spacing:3px;text-transform:uppercase;margin-top:4px}
+
+/* Logo variant 2: Icon + text stacked */
+.logo-stack{display:flex;flex-direction:column;align-items:center;gap:8px}
+.logo-stack .icon-circle{width:64px;height:64px;border-radius:50%;background:#1a1e2e;border:2px solid #f0a030;display:flex;align-items:center;justify-content:center}
+.variant.light .logo-stack .icon-circle{background:#fff;border-color:#e09020}
+.logo-stack .icon-circle span{font-size:14px;font-weight:800;letter-spacing:-1px}
+.logo-stack .icon-circle .w{color:#fff}
+.logo-stack .icon-circle .a{color:#f0a030}
+.variant.light .logo-stack .icon-circle .w{color:#1a1e2e}
+
+/* Logo variant 3: Minimal text */
+.logo-min{font-size:36px;font-weight:800;letter-spacing:-1px}
+.logo-min .w{color:#fff}
+.logo-min .a{color:#f0a030}
+.logo-min .dot{color:#f0a030;font-size:42px}
+.variant.light .logo-min .w{color:#1a1e2e}
+
+/* Logo variant 4: With rail underline */
+.logo-rail{position:relative;display:inline-block}
+.logo-rail .text{font-size:42px;font-weight:800;letter-spacing:-0.5px}
+.logo-rail .text .w{color:#fff}
+.logo-rail .text .a{color:#f0a030}
+.variant.light .logo-rail .text .w{color:#1a1e2e}
+.logo-rail .rail{display:block;height:4px;background:linear-gradient(90deg,#f0a030,#e08820);border-radius:2px;margin-top:6px;position:relative}
+.logo-rail .rail::before{content:'';position:absolute;top:-2px;left:15%;right:15%;height:8px;background:repeating-linear-gradient(90deg,transparent,transparent 12px,rgba(240,160,48,0.3) 12px,rgba(240,160,48,0.3) 14px)}
+
+/* Logo variant 5: Badge style */
+.logo-badge{display:inline-flex;flex-direction:column;align-items:center;border:2px solid #f0a030;border-radius:12px;padding:12px 24px 10px}
+.logo-badge .top{font-size:10px;letter-spacing:4px;color:#f0a030;text-transform:uppercase;margin-bottom:4px}
+.logo-badge .mid{font-size:32px;font-weight:800;letter-spacing:-1px}
+.logo-badge .mid .w{color:#fff}
+.logo-badge .mid .a{color:#f0a030}
+.variant.light .logo-badge .mid .w{color:#1a1e2e}
+.variant.light .logo-badge{border-color:#d08018}
+.logo-badge .bot{font-size:9px;letter-spacing:3px;color:#6a6e80;text-transform:uppercase;margin-top:4px}
+
+/* Favicon */
+.fav{width:32px;height:32px;background:#f0a030;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#0f1117}
+
+.section-label{font-size:13px;color:#555a70;margin-top:8px}
+</style>
+</head>
+<body>
+
+<h1>🚂 Loko<span>polis</span> — návrhy loga</h1>
+
+<div class="grid">
+
+  <!-- Variant 1: Horizontal with loco -->
+  <div class="variant">
+    <h2>Varianta 1 — Horizontální s ikonou</h2>
+    <div class="logo-row">
+      <div class="logo-full">
+        <svg width="56" height="56" viewBox="0 0 56 56"><g transform="translate(2,6)"><rect x="6" y="16" width="34" height="20" rx="3" fill="#f0a030"/><rect x="28" y="8" width="12" height="28" rx="2" fill="#e09020"/><rect x="10" y="8" width="6" height="10" rx="1.5" fill="#d08018"/><circle cx="8" cy="26" r="7" fill="#e09020"/><circle cx="14" cy="40" r="5" fill="#1a1e2e" stroke="#f0a030" stroke-width="2"/><circle cx="28" cy="40" r="5" fill="#1a1e2e" stroke="#f0a030" stroke-width="2"/><circle cx="38" cy="40" r="4" fill="#1a1e2e" stroke="#f0a030" stroke-width="1.5"/><rect x="31" y="12" width="7" height="6" rx="1" fill="#1a1e2e" opacity="0.6"/></g></svg>
+        <div>
+          <div class="text"><span class="w">LOKO</span><span class="a">POLIS</span></div>
+          <div class="sub">svět modelové železnice</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Variant 2: Rail underline -->
+  <div class="variant">
+    <h2>Varianta 2 — S kolejnicí</h2>
+    <div class="logo-row">
+      <div class="logo-rail">
+        <div class="text"><span class="w">LOKO</span><span class="a">POLIS</span></div>
+        <span class="rail"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Variant 3: Minimal dot -->
+  <div class="variant">
+    <h2>Varianta 3 — Minimalistické</h2>
+    <div class="logo-row">
+      <div class="logo-min"><span class="w">loko</span><span class="dot">.</span><span class="a">polis</span></div>
+      <div class="logo-min"><span class="w">LOKO</span><span class="a">POLIS</span></div>
+    </div>
+  </div>
+
+  <!-- Variant 4: Badge -->
+  <div class="variant">
+    <h2>Varianta 4 — Badge / razítko</h2>
+    <div class="logo-row">
+      <div class="logo-badge">
+        <span class="top">· est. 2026 ·</span>
+        <span class="mid"><span class="w">LOKO</span><span class="a">POLIS</span></span>
+        <span class="bot">modelová železnice</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Variant 5: Stacked icon -->
+  <div class="variant">
+    <h2>Varianta 5 — Ikona + text (vertikální)</h2>
+    <div class="logo-row">
+      <div class="logo-stack">
+        <div class="icon-circle"><span><span class="w">L</span><span class="a">P</span></span></div>
+        <div class="text" style="font-size:28px;font-weight:800;letter-spacing:-1px"><span class="w" style="color:#fff">LOKO</span><span class="a" style="color:#f0a030">POLIS</span></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="fav">LP</div>
+        <span class="section-label">← favicon</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIGHT VARIANTS -->
+  <div class="variant light">
+    <h2>Světlé pozadí — ukázka</h2>
+    <div class="logo-row">
+      <div class="logo-rail">
+        <div class="text"><span class="w">LOKO</span><span class="a">POLIS</span></div>
+        <span class="rail"></span>
+      </div>
+      <div class="logo-badge">
+        <span class="top">· est. 2026 ·</span>
+        <span class="mid"><span class="w">LOKO</span><span class="a">POLIS</span></span>
+        <span class="bot">modelová železnice</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

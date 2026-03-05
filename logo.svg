@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100" width="400" height="100">
+  <defs>
+    <linearGradient id="rail" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f0a030"/>
+      <stop offset="100%" stop-color="#e08820"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Locomotive icon -->
+  <g transform="translate(10,18)">
+    <!-- Body -->
+    <rect x="8" y="24" width="48" height="28" rx="4" fill="#f0a030"/>
+    <!-- Cabin -->
+    <rect x="38" y="12" width="18" height="40" rx="3" fill="#e09020"/>
+    <!-- Chimney -->
+    <rect x="14" y="14" width="8" height="12" rx="2" fill="#d08018"/>
+    <!-- Boiler front -->
+    <circle cx="10" cy="38" r="10" fill="#e09020"/>
+    <!-- Wheels -->
+    <circle cx="18" cy="56" r="7" fill="#1a1e2e" stroke="#f0a030" stroke-width="2.5"/>
+    <circle cx="38" cy="56" r="7" fill="#1a1e2e" stroke="#f0a030" stroke-width="2.5"/>
+    <circle cx="52" cy="56" r="5.5" fill="#1a1e2e" stroke="#f0a030" stroke-width="2"/>
+    <!-- Rail line -->
+    <line x1="0" y1="63" x2="66" y2="63" stroke="#f0a030" stroke-width="2" stroke-opacity="0.5"/>
+    <!-- Window -->
+    <rect x="42" y="18" width="10" height="8" rx="1.5" fill="#1a1e2e" opacity="0.7"/>
+    <!-- Steam puffs -->
+    <circle cx="16" cy="8" r="4" fill="#f0a030" opacity="0.2"/>
+    <circle cx="24" cy="4" r="3" fill="#f0a030" opacity="0.15"/>
+    <circle cx="10" cy="5" r="2.5" fill="#f0a030" opacity="0.1"/>
+  </g>
+
+  <!-- Text: LOKO -->
+  <text x="88" y="62" font-family="'Segoe UI',system-ui,sans-serif" font-size="48" font-weight="800" fill="#ffffff" letter-spacing="-1">LOKO</text>
+  
+  <!-- Text: POLIS -->
+  <text x="232" y="62" font-family="'Segoe UI',system-ui,sans-serif" font-size="48" font-weight="800" fill="#f0a030" letter-spacing="-1">POLIS</text>
+
+  <!-- Tagline -->
+  <text x="90" y="82" font-family="'Segoe UI',system-ui,sans-serif" font-size="13" fill="#6a6e80" letter-spacing="3" font-weight="500">SVĚT MODELOVÉ ŽELEZNICE</text>
+</svg>
